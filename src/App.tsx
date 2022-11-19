@@ -1,10 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Pinwheel from './components/Pinwheel';
 
 function App() {
   return (
-    <h1> Hello React on Ipad </h1>
+    <main>
+      <h1> Hello React on Ipad </h1>
+      <Pinwheel windSpeed={1}/>
+    </main>
   );
 }
 
