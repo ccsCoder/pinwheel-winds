@@ -1,13 +1,19 @@
 import React from 'react';
 import './App.css';
 import Pinwheel from './components/Pinwheel';
+import styled from 'styled-components'
 
 function App() {
+  const AppMain = styled.main`
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    place-items: center;
+  `
   return (
-    <main>
-      <h1> Hello React on Ipad </h1>
+    <AppMain> 
       <Pinwheel windSpeed={1}/>
-    </main>
+    </AppMain>
   );
 }
 
