@@ -34,6 +34,8 @@ const App = () => {
       console.log(`Latitude : ${crd.latitude}`);
       console.log(`Longitude: ${crd.longitude}`);
       console.log(`More or less ${crd.accuracy} meters.`);
+      // find the weather details now...
+      
     }
     
     const error = (err: any) => {
