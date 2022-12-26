@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Pinwheel from './components/Pinwheel';
 import styled from 'styled-components'
+import getWindSpeed, { WeatherResponse } from './WeatherService';
 
 const AppMain = styled.main`
   position: fixed;
@@ -19,6 +20,7 @@ const AppMain = styled.main`
 `
 
 const App = () => {
+  const [currWindSpeed, setCurrWindSpeed] = useState(0)
   useEffect(() => {
     // request browser location here...
     const options = {
@@ -27,7 +29,7 @@ const App = () => {
       maximumAge: 0
     };
     
-    const success = (pos: GeolocationPosition) => {
+    const success = async (pos: GeolocationPosition) => {
       const crd = pos.coords;
     
       console.log('Your current position is:');
@@ -36,6 +38,8 @@ const App = () => {
       console.log(`More or less ${crd.accuracy} meters.`);
       // find the weather details now...
       
+      const windDetails: WeatherResponse = await getWindSpeed(crd);
+      setCurrWindSpeed(windDetails.windSpeed)
     }
     
     const error = (err: any) => {
@@ -48,7 +52,7 @@ const App = () => {
   return (
     <>
       <AppMain> 
-        <Pinwheel windSpeed={0}/>
+        <Pinwheel windSpeed={currWindSpeed} />
       </AppMain>
     </>
     

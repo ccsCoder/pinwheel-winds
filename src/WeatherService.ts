@@ -10,8 +10,7 @@ export interface WeatherResponse {
 }
 
 const getWindSpeed = async (coords: GeolocationCoordinates): Promise<WeatherResponse> => {
-  const API_URL = `http://api.weatherapi.com/v1/current.json/q=${coords.latitude},${coords.longitude}&aqi=no`;
-
+  const API_URL = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${coords.latitude},${coords.longitude}&aqi=no`;
   const response: WeatherResponse = {
     location: 'Unknown',
     windSpeed: 0,
@@ -20,10 +19,12 @@ const getWindSpeed = async (coords: GeolocationCoordinates): Promise<WeatherResp
   }
   try {
     const { location: { name, region, country }, current: { wind_kph, wind_degree, wind_dir} } = await (await fetch(API_URL)).json();
+    // populate the response object
     response.location = `${name},${region} - ${country}`;
     response.windDegree = wind_degree;
     response.windSpeed = wind_kph;
     response.windDirection = wind_dir;
+    console.log('Response = ', JSON.stringify(response));
   } catch(error) {
     console.error('Error while fetching weather details...', error)
   } finally {
