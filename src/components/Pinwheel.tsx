@@ -5,7 +5,7 @@ import styled, { createGlobalStyle, keyframes } from 'styled-components';
 const computeRotationTiming = (windSpeed: number, width: number): number => {
   if (windSpeed === 0) return Number.POSITIVE_INFINITY
   // tangential velocity timing function is 2 Pi R/ windSpeed is in KM/H
-  const mpsWindSpeed = (windSpeed * 3600.0) / 1000.0
+  const mpsWindSpeed = (windSpeed * 1000) / 3600.0
   return (2 * Math.PI * width) / mpsWindSpeed
 }
 
@@ -35,7 +35,7 @@ const Pinwheel = ({ windSpeed = 0 }: { windSpeed : number}) => {
       const current = wheelRef.current!;
       const animationSpeed = computeRotationTiming(windSpeed, current.getBoundingClientRect().width as number);
       console.log('Calculated Animation Speed = ', animationSpeed)
-      current.style.animationDuration = `${animationSpeed}s`;
+      current.style.animationDuration = `${animationSpeed}ms`;
       return () => {
         current.style.animationDuration = `${Number.POSITIVE_INFINITY}s`;
       }
